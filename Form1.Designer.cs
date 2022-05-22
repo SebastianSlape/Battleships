@@ -1,6 +1,6 @@
 ﻿namespace Battleships
 {
-    partial class Form1
+    partial class frmBattleship
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,45 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvPlace = new System.Windows.Forms.DataGridView();
-            this.btnPlaceShip = new System.Windows.Forms.Button();
+            this.dgvShips = new System.Windows.Forms.DataGridView();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPlace)).BeginInit();
+            this.dgvGrid = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShips)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgvPlace
+            // dgvShips
             // 
-            this.dgvPlace.AllowUserToAddRows = false;
-            this.dgvPlace.AllowUserToDeleteRows = false;
-            this.dgvPlace.AllowUserToResizeColumns = false;
-            this.dgvPlace.AllowUserToResizeRows = false;
-            this.dgvPlace.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvPlace.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvPlace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPlace.Location = new System.Drawing.Point(232, 49);
-            this.dgvPlace.Name = "dgvPlace";
-            this.dgvPlace.ReadOnly = true;
-            this.dgvPlace.RowHeadersWidth = 51;
-            this.dgvPlace.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvPlace.RowTemplate.Height = 29;
-            this.dgvPlace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvPlace.Size = new System.Drawing.Size(516, 348);
-            this.dgvPlace.TabIndex = 0;
-            // 
-            // btnPlaceShip
-            // 
-            this.btnPlaceShip.Location = new System.Drawing.Point(34, 49);
-            this.btnPlaceShip.Name = "btnPlaceShip";
-            this.btnPlaceShip.Size = new System.Drawing.Size(151, 54);
-            this.btnPlaceShip.TabIndex = 1;
-            this.btnPlaceShip.Text = "Place Ships";
-            this.btnPlaceShip.UseVisualStyleBackColor = true;
-            this.btnPlaceShip.Click += new System.EventHandler(this.btnPlaceShip_Click);
+            this.dgvShips.AllowUserToAddRows = false;
+            this.dgvShips.AllowUserToDeleteRows = false;
+            this.dgvShips.AllowUserToResizeColumns = false;
+            this.dgvShips.AllowUserToResizeRows = false;
+            this.dgvShips.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvShips.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvShips.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvShips.Location = new System.Drawing.Point(12, 63);
+            this.dgvShips.Name = "dgvShips";
+            this.dgvShips.ReadOnly = true;
+            this.dgvShips.RowHeadersWidth = 51;
+            this.dgvShips.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvShips.RowTemplate.Height = 29;
+            this.dgvShips.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvShips.Size = new System.Drawing.Size(472, 312);
+            this.dgvShips.TabIndex = 0;
+            this.dgvShips.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvShips_CellMouseUp);
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(34, 128);
+            this.btnClear.Location = new System.Drawing.Point(181, 435);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(151, 54);
             this.btnClear.TabIndex = 2;
@@ -76,7 +68,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(34, 343);
+            this.btnStart.Location = new System.Drawing.Point(12, 435);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(151, 54);
             this.btnStart.TabIndex = 3;
@@ -84,28 +76,48 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // Form1
+            // dgvGrid
+            // 
+            this.dgvGrid.AllowUserToAddRows = false;
+            this.dgvGrid.AllowUserToDeleteRows = false;
+            this.dgvGrid.AllowUserToResizeColumns = false;
+            this.dgvGrid.AllowUserToResizeRows = false;
+            this.dgvGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvGrid.Location = new System.Drawing.Point(514, 63);
+            this.dgvGrid.Name = "dgvGrid";
+            this.dgvGrid.ReadOnly = true;
+            this.dgvGrid.RowHeadersWidth = 51;
+            this.dgvGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvGrid.RowTemplate.Height = 29;
+            this.dgvGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dgvGrid.Size = new System.Drawing.Size(472, 312);
+            this.dgvGrid.TabIndex = 4;
+            // 
+            // frmBattleship
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(998, 505);
+            this.Controls.Add(this.dgvGrid);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnPlaceShip);
-            this.Controls.Add(this.dgvPlace);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPlace)).EndInit();
+            this.Controls.Add(this.dgvShips);
+            this.Name = "frmBattleship";
+            this.Text = "Battleship";
+            this.Load += new System.EventHandler(this.frmBattleship_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShips)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DataGridView dgvPlace;
-        private Button btnPlaceShip;
+        private DataGridView dgvShips;
         private Button btnClear;
         private Button btnStart;
+        private DataGridView dgvGrid;
     }
 }
