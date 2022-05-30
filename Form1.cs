@@ -13,6 +13,7 @@ namespace Battleships
 
         bool noahMode = false;
         bool placing = true;
+        bool end = false;
 
         string soundFolder = "";
 
@@ -24,13 +25,51 @@ namespace Battleships
         int[] shipSize = new int[5] { 5, 4, 3, 3, 2 };
         bool[] shipsPlaced = new bool[5] { false, false, false, false, false };
 
+        bool[,] CPUShip = new bool[10,10];
+
+        bool[,] Carrier = new bool[10, 10];
+        bool CarrierAlive = false;
+
+        bool[,] Battleship = new bool[10, 10];
+        bool BattleshipAlive = false;
+
+        bool[,] Cruiser = new bool[10, 10];
+        bool CruiserAlive = false;
+
+        bool[,] Submarine = new bool[10, 10];
+        bool SubmarineAlive = false;
+
+        bool[,] Destroyer = new bool[10, 10];
+        bool DestroyerAlive = false;
+
+        bool muted = false;
+
         public frmBattleship()
         {
             InitializeComponent();
         }
 
+        public void PlayGoodSound()
+        {
+            if (muted)
+            {
+                return;
+            }
+
+            // Initialize Location Of Folders
+            soundFolder = utility.NavigateParents(Environment.CurrentDirectory, 3) + "\\Sounds";
+
+            wplayer.controls.stop();
+            wplayer.URL = soundFolder + "\\" + soundArray[rnd.Next(0, soundArray.Length)];
+            wplayer.controls.play();
+        }
         public void PlayBadSound()
         {
+            if (muted)
+            {
+                return;
+            }
+
             // Initialize Location Of Folders
             soundFolder = utility.NavigateParents(Environment.CurrentDirectory, 3) + "\\Sounds";
 
@@ -39,8 +78,13 @@ namespace Battleships
             wplayer.controls.play();
         }
 
-        public void PlayGoodSound()
+        public void PlayPlaceSound()
         {
+            if (muted)
+            {
+                return;
+            }
+
             // Initialize Location Of Folders
             soundFolder = utility.NavigateParents(Environment.CurrentDirectory, 3) + "\\Sounds";
 
@@ -53,12 +97,10 @@ namespace Battleships
         {
             string name = string.Join(' ', Regex.Split(utility.GetNameOfUser(), @"(?<!^)(?=[A-Z])")); // Regex to Seperate Name by Capitalization ("JohnDoe" => "John Doe")
 
-            if (name == "Noah Casey") // Check if it is you know who
+            if (name != "Noah Casey") // Check if it is you know who
             {
                 noahMode = true;
             }
-
-            Interaction.MsgBox("Hello " + name);
 
             if (noahMode)
             {
@@ -92,11 +134,11 @@ namespace Battleships
                 dgvShips.SelectedCells[j].Style.BackColor = Color.Red;
             }
             dgvShips.ClearSelection();
-            PlayGoodSound();
+            PlayPlaceSound();
         }
         public void PlaceShip()
         {
-            if (!placing)
+            if (!placing || end)
             {
                 return;
             }
@@ -180,7 +222,89 @@ namespace Battleships
                 }
             }
         }
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            CPUShip = new bool[10, 10];
+            Carrier = new bool[10, 10];
+            CarrierAlive = true;
 
+            Battleship = new bool[10, 10];
+            BattleshipAlive = true;
+
+            Cruiser = new bool[10, 10];
+            CruiserAlive = true;
+
+            Submarine = new bool[10, 10];
+            SubmarineAlive = true;
+
+            Destroyer = new bool[10, 10];
+            DestroyerAlive = true;
+
+            for (int i = 0; i < shipsPlaced.Length; i++)
+            {
+                if (!shipsPlaced[i])
+                {
+                    Interaction.MsgBox("You need to place all of your ships", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Error");
+                    return;
+                }
+            }
+
+            btnClear.Enabled = false;
+            btnStart.Enabled = false;
+            btnReset.Enabled = true;
+            placing = false;
+            dgvShips.ClearSelection();
+            for (int i = 0; i < 5; i++)
+            {
+                int randX = rnd.Next(0, 10);
+                int randY = rnd.Next(0, 10);
+                if (CPUShip[randX, randY] == false)
+                {
+                    CPUShip[randX, randY] = true;
+                    Carrier[randX, randY] = true;
+                }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                int randX = rnd.Next(0, 10);
+                int randY = rnd.Next(0, 10);
+                if (CPUShip[randX, randY] == false)
+                {
+                    CPUShip[randX, randY] = true;
+                    Battleship[randX, randY] = true;
+                }
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                int randX = rnd.Next(0, 10);
+                int randY = rnd.Next(0, 10);
+                if (CPUShip[randX, randY] == false)
+                {
+                    CPUShip[randX, randY] = true;
+                    Cruiser[randX, randY] = true;
+                }
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                int randX = rnd.Next(0, 10);
+                int randY = rnd.Next(0, 10);
+                if (CPUShip[randX, randY] == false)
+                {
+                    CPUShip[randX, randY] = true;
+                    Submarine[randX, randY] = true;
+                }
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                int randX = rnd.Next(0, 10);
+                int randY = rnd.Next(0, 10);
+                if (CPUShip[randX, randY] == false)
+                {
+                    CPUShip[randX, randY] = true;
+                    Destroyer[randX, randY] = true;
+                }
+            }
+        }
         private void btnClear_Click(object sender, EventArgs e)
         {
             dgvShips.ClearSelection();
@@ -192,30 +316,247 @@ namespace Battleships
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    dgvShips[i,j].Style.BackColor = Color.White;
+                    dgvShips[i, j].Style.BackColor = Color.White;
                 }
             }
         }
-
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < shipsPlaced.Length; i++)
-            {
-                if (!shipsPlaced[i])
-                {
-                    Interaction.MsgBox("You need to place all of your ships", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Error");
-                    return;
-                }
-            }
-            btnClear.Enabled = false;
-            btnStart.Enabled = false;
-            placing = false;
-            dgvShips.ClearSelection();
-        }
-
         private void dgvShips_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
             PlaceShip();
+        }
+
+        private void btnMute_Click(object sender, EventArgs e)
+        {
+            btnMute.Enabled = false;
+            btnUnmute.Enabled = true;
+            wplayer.controls.stop();
+            muted = true;
+        }
+
+        private void btnUnmute_Click(object sender, EventArgs e)
+        {
+            btnUnmute.Enabled = false;
+            btnMute.Enabled = true;
+            muted = false;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            btnReset.Enabled = false;
+            btnClear.Enabled = true;
+            btnStart.Enabled = true;
+            placing = true;
+            end = false;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    dgvShips[i, j].Style.BackColor = Color.White;
+                    dgvGrid[i, j].Style.BackColor = Color.White;
+                }
+            }
+            for (int i = 0; i < shipsPlaced.Length; i++)
+            {
+                shipsPlaced[i] = false;
+            }
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            if (noahMode)
+            {
+                Interaction.MsgBox("You don't deserve help.", Microsoft.VisualBasic.MsgBoxStyle.Information, "Help");
+                return;
+            }
+            if (placing)
+            {
+                Interaction.MsgBox("To place your ships, drag your cursor over the grid with the length of the ship you want to create.", Microsoft.VisualBasic.MsgBoxStyle.Information, "Help");
+                return;
+            } 
+            if (end)
+            {
+                Interaction.MsgBox("To reset the game, press 'Reset Game'.", Microsoft.VisualBasic.MsgBoxStyle.Information, "Help");
+                return;
+            }
+            Interaction.MsgBox("To fire, double click on the cell that you want to shoot.", Microsoft.VisualBasic.MsgBoxStyle.Information, "Help");
+        }
+        public void CheckShips()
+        {
+            bool check = false;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (Carrier[i, j] == true)
+                    {
+                        check = true;
+                    }
+                }
+            }
+            if (!check && CarrierAlive)
+            {
+                Interaction.MsgBox("You have destroyed the Carrier!", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Carrier");
+                CarrierAlive = false;
+                return;
+            }
+
+            check = false;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (Battleship[i, j] == true)
+                    {
+                        check = true;
+                    }
+                }
+            }
+            if (!check && BattleshipAlive)
+            {
+                Interaction.MsgBox("You have destroyed the Carrier!", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Carrier");
+                BattleshipAlive = false;
+                return;
+            }
+
+            check = false;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (Cruiser[i, j] == true)
+                    {
+                        check = true;
+                    }
+                }
+            }
+            if (!check && CruiserAlive)
+            {
+                Interaction.MsgBox("You have destroyed the Cruiser!", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Carrier");
+                CruiserAlive = false;
+                return;
+            }
+
+            check = false;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (Submarine[i, j] == true)
+                    {
+                        check = true;
+                    }
+                }
+            }
+            if (!check && SubmarineAlive)
+            {
+                Interaction.MsgBox("You have destroyed the Submarine!", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Carrier");
+                SubmarineAlive = false;
+                return;
+            }
+
+            check = false;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (Destroyer[i, j] == true)
+                    {
+                        check = true;
+                    }
+                }
+            }
+            if (!check && DestroyerAlive)
+            {
+                Interaction.MsgBox("You have destroyed the Destroyer!", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Carrier");
+                DestroyerAlive = false;
+                return;
+            }
+        }
+        private void dgvGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            dgvGrid.ClearSelection();
+            if (placing || end)
+            {
+                return;
+            }
+            int x = e.ColumnIndex;
+            int y = e.RowIndex;
+            bool shoot = true;
+            if (x < 0 || y < 0)
+            {
+                return;
+            }
+            if (dgvGrid[x,y].Style.BackColor == Color.Gray || dgvGrid[x, y].Style.BackColor == Color.Black)
+            {
+                Interaction.MsgBox("You have already hit there.", Microsoft.VisualBasic.MsgBoxStyle.Information, "Error");
+                return;
+            }
+            if (noahMode && rnd.NextDouble() > 0.6)
+            {
+                shoot = false;
+                Interaction.MsgBox("The gun malfunctioned and got stuck.", Microsoft.VisualBasic.MsgBoxStyle.Exclamation, "Error");
+            }
+            if (shoot)
+            {
+                if (CPUShip[x, y] == true)
+                {
+                    dgvGrid[x, y].Style.BackColor = Color.Black;
+                    CPUShip[x, y] = false;
+
+                    Carrier[x, y] = false;
+                    Battleship[x, y] = false;
+                    Cruiser[x, y] = false;
+                    Submarine[x, y] = false;
+                    Destroyer[x, y] = false;
+                }
+                else
+                {
+                    dgvGrid[x, y].Style.BackColor = Color.Gray;
+                }
+            }
+            CheckShips();
+            if (!CarrierAlive && !BattleshipAlive && !CruiserAlive && !SubmarineAlive && !DestroyerAlive)
+            {
+                end = true;
+                PlayGoodSound();
+                Interaction.MsgBox("You Won!");
+                return;
+            }
+            while (true)
+            {
+                int x2 = rnd.Next(0, 10);
+                int y2 = rnd.Next(0, 10);
+                if (dgvShips[x2, y2].Style.BackColor != Color.Black && dgvShips[x2, y2].Style.BackColor != Color.Gray)
+                {
+                    if (dgvShips[x2, y2].Style.BackColor == Color.Red)
+                    {
+                        dgvShips[x2, y2].Style.BackColor = Color.Black;
+                        break;
+                    } else
+                    {
+                        dgvShips[x2, y2].Style.BackColor = Color.Gray;
+                        break;
+                    }
+                }
+            }
+            bool hasLost = true;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (dgvShips[i, j].Style.BackColor == Color.Red)
+                    {
+                        hasLost = false;
+                    }
+                }
+            }
+            if (hasLost)
+            {
+                end = true;
+                PlayBadSound();
+                Interaction.MsgBox("You Lost!");
+                return;
+            }
         }
     }
 }
