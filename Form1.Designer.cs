@@ -50,6 +50,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btnHelp = new System.Windows.Forms.Button();
+            this.rtbShipsLeft = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.rtbShipsToPlace = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShips)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -69,7 +73,7 @@
             this.dgvShips.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvShips.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvShips.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvShips.Location = new System.Drawing.Point(12, 141);
+            this.dgvShips.Location = new System.Drawing.Point(12, 180);
             this.dgvShips.Name = "dgvShips";
             this.dgvShips.ReadOnly = true;
             this.dgvShips.RowHeadersWidth = 51;
@@ -77,7 +81,7 @@
             this.dgvShips.RowTemplate.Height = 29;
             this.dgvShips.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvShips.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvShips.Size = new System.Drawing.Size(496, 314);
+            this.dgvShips.Size = new System.Drawing.Size(520, 314);
             this.dgvShips.TabIndex = 0;
             this.dgvShips.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvShips_CellMouseUp);
             // 
@@ -90,7 +94,7 @@
             this.dgvGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGrid.Location = new System.Drawing.Point(524, 141);
+            this.dgvGrid.Location = new System.Drawing.Point(558, 180);
             this.dgvGrid.Name = "dgvGrid";
             this.dgvGrid.ReadOnly = true;
             this.dgvGrid.RowHeadersWidth = 51;
@@ -98,7 +102,7 @@
             this.dgvGrid.RowTemplate.Height = 29;
             this.dgvGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvGrid.Size = new System.Drawing.Size(501, 314);
+            this.dgvGrid.Size = new System.Drawing.Size(514, 314);
             this.dgvGrid.TabIndex = 4;
             this.dgvGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvGrid_CellMouseDoubleClick);
             // 
@@ -110,7 +114,7 @@
             this.flowLayoutPanel1.Controls.Add(this.panel3);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1038, 127);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1087, 127);
             this.flowLayoutPanel1.TabIndex = 6;
             // 
             // panel1
@@ -224,7 +228,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(84, 66);
+            this.label4.Location = new System.Drawing.Point(93, 66);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 20);
             this.label4.TabIndex = 11;
@@ -234,7 +238,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(12, 66);
+            this.label5.Location = new System.Drawing.Point(13, 66);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 20);
             this.label5.TabIndex = 10;
@@ -270,7 +274,7 @@
             this.btnUnmute.Enabled = false;
             this.btnUnmute.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUnmute.Image = ((System.Drawing.Image)(resources.GetObject("btnUnmute.Image")));
-            this.btnUnmute.Location = new System.Drawing.Point(83, 3);
+            this.btnUnmute.Location = new System.Drawing.Point(93, 3);
             this.btnUnmute.Name = "btnUnmute";
             this.btnUnmute.Size = new System.Drawing.Size(60, 60);
             this.btnUnmute.TabIndex = 7;
@@ -320,11 +324,53 @@
             this.btnHelp.UseVisualStyleBackColor = false;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
+            // rtbShipsLeft
+            // 
+            this.rtbShipsLeft.Location = new System.Drawing.Point(558, 500);
+            this.rtbShipsLeft.Name = "rtbShipsLeft";
+            this.rtbShipsLeft.ReadOnly = true;
+            this.rtbShipsLeft.Size = new System.Drawing.Size(514, 96);
+            this.rtbShipsLeft.TabIndex = 7;
+            this.rtbShipsLeft.Text = "";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(195, 131);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(156, 41);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Your Ships";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(726, 131);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(186, 41);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Enemy Ships";
+            // 
+            // rtbShipsToPlace
+            // 
+            this.rtbShipsToPlace.Location = new System.Drawing.Point(12, 500);
+            this.rtbShipsToPlace.Name = "rtbShipsToPlace";
+            this.rtbShipsToPlace.ReadOnly = true;
+            this.rtbShipsToPlace.Size = new System.Drawing.Size(520, 96);
+            this.rtbShipsToPlace.TabIndex = 10;
+            this.rtbShipsToPlace.Text = "";
+            // 
             // frmBattleship
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 573);
+            this.ClientSize = new System.Drawing.Size(1084, 607);
+            this.Controls.Add(this.rtbShipsToPlace);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.rtbShipsLeft);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.dgvGrid);
             this.Controls.Add(this.dgvShips);
@@ -343,6 +389,7 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -369,5 +416,9 @@
         private Label label7;
         private Label label8;
         private Button btnHelp;
+        private RichTextBox rtbShipsLeft;
+        private Label label3;
+        private Label label9;
+        private RichTextBox rtbShipsToPlace;
     }
 }

@@ -14,9 +14,9 @@ namespace UtilityFunctions
         {
             string[] pathArray = path.Split('\\'); // Split by Path Directory Seperator ('\')
             string[] newPathArray = new string[pathArray.Length - num];
-            if (num < pathArray.Length)
+            if (num < pathArray.Length && num > 0)
             {
-                for (int i = 0; i < newPathArray.Length; i++)
+                for (int i = 0; i < newPathArray.Length; i++) // Only loop up to the length of the new path array
                 {
                     newPathArray[i] = pathArray[i];
                 }
