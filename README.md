@@ -1,4 +1,4 @@
-# Battleships ![](https://img.shields.io/badge/dependencies-up%20to%20date-yellow) ![](https://img.shields.io/badge/.Net%20Version-6.0-blue)
+# Battleships ![](https://img.shields.io/badge/dependencies-up%20to%20date-yellow) ![](https://img.shields.io/badge/.net%20version-6.0-blue)
 
 A work-in-progress program that plays battleships.
 
